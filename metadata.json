@@ -1,0 +1,5 @@
+{
+  "name": "Sentinel",
+  "description": "A robust browser automation agent that uses Gemini 3 Pro with Thinking Mode to recover from navigation errors. Includes a React dashboard for real-time monitoring and a Node.js backend for Puppeteer control.",
+  "requestFramePermissions": []
+}
