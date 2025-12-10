@@ -23,6 +23,8 @@ app.use(express.json());
 // Initialize Gemini
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
+// process.env.API_KEY 
+
 // Active browser session
 let browser = null;
 let page = null;
@@ -50,9 +52,18 @@ app.post('/start', async (req, res) => {
         log('system', `Target URL: ${url}`);
         
         browser = await puppeteer.launch({
-            headless: false, // Visible as requested
+            headless: false,
             defaultViewport: { width: 1280, height: 800 },
-            args: ['--no-sandbox']
+            executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+            userDataDir: './.chrome-session', // <--- THE FIX: Gives the bot its own separate brain
+            args: [
+                '--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-infobars',
+                '--window-position=0,0',
+                '--ignore-certificate-errors',
+                '--disable-extensions' // Prevents your adblockers from crashing the bot
+            ]
         });
         
         page = await browser.newPage();
@@ -94,7 +105,7 @@ async function runAgentLoop(page, goal) {
             log('thinking', 'Visual analysis in progress. Identifying interactive elements using Gemini 1.5 Flash...');
             
             const fastAnalysis = await ai.models.generateContent({
-                model: 'gemini-2.5-flash',
+                model: 'ggemini-1.5-flash',
                 contents: {
                     parts: [
                         { inlineData: { mimeType: 'image/png', data: screenshot } },
@@ -128,11 +139,15 @@ async function runAgentLoop(page, goal) {
             }
             
             log('system', 'Action executed successfully. Verifying state...');
-            await new Promise(r => setTimeout(r, 2000));
+            await new Promise(r => setTimeout(r, 4000));
             attempts++;
             
         } catch (error) {
             log('error', `Action failed: ${error.message}`);
+
+            // FIX: Wait 10 seconds before Thinking to prevent 429 Crashes
+            log('system', 'Cooling down for 10s before engaging Deep Reasoning...');
+            await new Promise(r => setTimeout(r, 10000));
             
             // Phase 2: SELF-HEALING / REASONING (Gemini Pro Thinking)
             log('thinking', 'Error detected. Engaging deep reasoning loop (Gemini 3 Pro) to diagnose and heal...');
@@ -142,7 +157,7 @@ async function runAgentLoop(page, goal) {
             log('screenshot', 'Capturing error state...', { imageUrl: `data:image/png;base64,${screenshot}` });
             
             const healingResponse = await ai.models.generateContent({
-                model: 'gemini-3-pro-preview',
+                model: 'ggemini-1.5-pro',
                 contents: {
                     parts: [
                         { inlineData: { mimeType: 'image/png', data: screenshot } },
