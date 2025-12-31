@@ -1,20 +1,55 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+Sentinel
+An autonomous browser automation agent with real-time monitoring and error recovery capabilities.
+Overview
+Sentinel is an agentic system that uses Gemini 2.5 Pro with Thinking Mode to autonomously navigate web pages and recover from errors. Unlike simple retry logic, Sentinel reasons through navigation failures—diagnosing issues and adapting its approach in real-time.
+This project was built with AI safety principles in mind: agentic systems need observability baked in, not bolted on. The monitoring dashboard provides real-time visibility into agent decision-making and actions.
+Features
 
-# Run and deploy your AI Studio app
+Autonomous Error Recovery: Agent reasons through navigation failures and adapts its strategy
+Real-Time Monitoring Dashboard: React-based UI for observing agent actions as they happen
+Thinking Mode Integration: Leverages Gemini 2.5 Pro's reasoning capabilities for robust decision-making
+Browser Automation: Full browser control via Puppeteer
 
-This contains everything you need to run your app locally.
+Tech Stack
 
-View your app in AI Studio: https://ai.studio/apps/drive/1TLe-svcugqu1EOTUFDFe1xpxnNskELVA
+Frontend: React, TypeScript
+Backend: Node.js, Puppeteer
+LLM: Gemini 2.5 Pro with Thinking Mode
 
-## Run Locally
+Getting Started
+Prerequisites
 
-**Prerequisites:**  Node.js
+Node.js
+Gemini API key
 
+Installation
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Clone the repository:
+
+bash   git clone https://github.com/cyberblocked/Sentinel.git
+   cd Sentinel
+
+Install dependencies:
+
+bash   npm install
+
+Create a .env.local file and add your Gemini API key:
+
+   GEMINI_API_KEY=your_api_key_here
+
+Run the application:
+
+bash   npm run dev
+Architecture
+Sentinel/
+├── backend/          # Node.js server + Puppeteer browser control
+├── components/       # React UI components
+├── services/         # LLM integration + agent logic
+├── App.tsx           # Main application
+└── index.tsx         # Entry point
+Why This Matters
+As AI agents become more capable, oversight and observability become critical. Sentinel demonstrates that monitoring can be a first-class feature of agentic systems—not an afterthought.
+Author
+Lesley Ward — GitHub
+License
+MIT
