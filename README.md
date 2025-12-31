@@ -40,13 +40,21 @@ Create a .env.local file and add your Gemini API key:
 Run the application:
 
 bash   npm run dev
-Architecture
+
 Sentinel/
 ├── backend/          # Node.js server + Puppeteer browser control
 ├── components/       # React UI components
 ├── services/         # LLM integration + agent logic
 ├── App.tsx           # Main application
 └── index.tsx         # Entry point
+
+
+
+
+
+
+
+
 Why This Matters
 As AI agents become more capable, oversight and observability become critical. Sentinel demonstrates that monitoring can be a first-class feature of agentic systems—not an afterthought.
 Author
