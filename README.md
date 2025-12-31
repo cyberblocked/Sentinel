@@ -24,40 +24,20 @@ Gemini API key
 
 Installation
 
-Clone the repository:
+Clone the repository
+Install dependencies: npm install
+Create a .env.local file and add your Gemini API key
+Run the application: npm run dev
 
-bash   git clone https://github.com/cyberblocked/Sentinel.git
-   cd Sentinel
+Project Structure
 
-Install dependencies:
-
-bash   npm install
-
-Create a .env.local file and add your Gemini API key:
-
-   GEMINI_API_KEY=your_api_key_here
-
-Run the application:
-
-bash   npm run dev
-
-Sentinel/
-├── backend/          # Node.js server + Puppeteer browser control
-├── components/       # React UI components
-├── services/         # LLM integration + agent logic
-├── App.tsx           # Main application
-└── index.tsx         # Entry point
-
-
-
-
-
-
-
+backend/ — Node.js server + Puppeteer browser control
+components/ — React UI components
+services/ — LLM integration + agent logic
+App.tsx — Main application
+index.tsx — Entry point
 
 Why This Matters
 As AI agents become more capable, oversight and observability become critical. Sentinel demonstrates that monitoring can be a first-class feature of agentic systems—not an afterthought.
 Author
 Lesley Ward — GitHub
-License
-MIT
